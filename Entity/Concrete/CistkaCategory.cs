@@ -26,9 +26,11 @@ namespace Entity.Concrete
 
         public bool Discount { get; set; }
 
-        
+		public Filial Filial { get; set; }
+
+		public int FilialId { get; set; }
 
 
 
-    }
+	}
 }

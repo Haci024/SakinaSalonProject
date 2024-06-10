@@ -14,8 +14,9 @@ namespace Data.Configs.Db1Configs
         public void Configure(EntityTypeBuilder<BodyShapingSessionList> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x=>x.AppUser).WithMany(x=>x.BodyShapingSessionList).HasForeignKey(x=>x.AppointmentId);
+            builder.HasOne(x=>x.AppUser).WithMany(x=>x.BodyShapingSessionList).HasForeignKey(x=>x.AppUserId);
             builder.HasOne(x=>x.BodyShapingAppointment).WithMany(x=>x.BodyShapingSessionLists).HasForeignKey(x=>x.AppointmentId);
+            
             
             
         }

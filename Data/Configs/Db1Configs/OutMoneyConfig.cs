@@ -14,8 +14,11 @@ namespace Data.Configs.Db1Configs
         public void Configure(EntityTypeBuilder<OutMoney> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.HasOne(x => x.AppUser).WithMany(x => x.OutMoney).HasForeignKey(x => x.AppUser);
+            builder.HasOne(x => x.AppUser).WithMany(x => x.OutMoney).HasForeignKey(x => x.AppUserId);
+            builder.HasOne(x => x.Filial).WithMany(x => x.OutMoney).HasForeignKey(x => x.FilialId);
             builder.HasOne(x => x.SpendCategory).WithMany(x => x.OutMoney).HasForeignKey(x => x.SpendCategoryId);
+            builder.Property(x => x.Price).HasColumnType("decimal(6,2)");
+
         }
     }
 }

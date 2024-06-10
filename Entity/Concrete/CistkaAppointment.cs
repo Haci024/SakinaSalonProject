@@ -46,6 +46,16 @@ namespace Entity.Concrete
 
         public decimal ReturnMoney { get; set; }
 
+        public AppUser AppUser { get; set; }
+
+        public string AppUserId { get; set; }
+
+        public IEnumerable<CistkaReports> CistkaReports { get; set;}
+
+       
+
+        
+
         
     }
 }

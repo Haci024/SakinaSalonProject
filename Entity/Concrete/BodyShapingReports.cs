@@ -9,7 +9,6 @@ namespace Entity.Concrete
     public class BodyShapingReports
     {
         
-
         public BodyshapingAppointment BodyshapingAppointments { get; set; }
 
         public int AppointmentsId { get; set; }

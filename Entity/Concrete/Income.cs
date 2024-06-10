@@ -29,7 +29,7 @@ namespace Entity.Concrete
          
         public Stock Stock { get; set; }  
 
-        public long StockId { get; set; }
+        public int StockId { get; set; }
 
         public Filial Filial { get; set; }
 

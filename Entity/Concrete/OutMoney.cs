@@ -23,5 +23,9 @@ namespace Entity.Concrete
         public  SpendCategory SpendCategory { get; set;}
 
         public int SpendCategoryId { get; set;}
+
+        public Filial Filial { get; set;}
+
+        public int FilialId { get; set;} 
     }
 }

@@ -56,7 +56,9 @@ namespace Entity.Concrete
 
         public IEnumerable<MakeUpCategory> MakeUpCategory { get; set; }
 
-        public IEnumerable<KassaActionCategory> KassaActionCategories { get; set; }
+		public IEnumerable<OutMoney> OutMoney { get; set; }
+
+		public IEnumerable<KassaActionCategory> KassaActionCategories { get; set; }
 
     }
 }

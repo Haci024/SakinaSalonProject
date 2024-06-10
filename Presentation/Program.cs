@@ -1,21 +1,22 @@
-using Business.Manager;
+﻿using Business.Manager;
 using Business.Services;
+using Data.Context;
 using Data.DAL.Customer;
 using Data.Repositories.Db1Repository;
 using Entity.Concrete;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<AppDbContext>();
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
-
-var app = builder.Build();
 builder.Services.AddScoped<ILazerAppointmentService, LazerAppointmentManager>();
-builder.Services.AddScoped<ILazerAppointmentDAL,LazerAppointmentRepository>();
+builder.Services.AddScoped<ILazerAppointmentDAL, LazerAppointmentRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerManager>();
 builder.Services.AddScoped<ICustomerDAL, CustomerRepository>();
 builder.Services.AddScoped<IMasterService, MasterManager>();
 builder.Services.AddScoped<IMasterDAL, MasterRepository>();
+var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
 {
@@ -24,6 +25,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
+	options.Password.RequireUppercase = false;
+	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuöğıəşçvwxyzABCDEFGHIJŞÖĞIƏKLMNOPÇQRSTUVWXYZ0123456789.";
+
+
+
+}).AddEntityFrameworkStores<AppDbContext>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

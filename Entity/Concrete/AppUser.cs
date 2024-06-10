@@ -48,5 +48,7 @@ namespace Entity.Concrete
 
         public IEnumerable<OutMoney> OutMoney { get; set; }
 
-    }
+		public IEnumerable<Stock> Stocks { get; set; }
+
+	}
 }

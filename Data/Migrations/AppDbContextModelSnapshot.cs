@@ -3,138 +3,122 @@ using System;
 using Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240605165348_CreateDb1")]
-    partial class CreateDb1
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.6")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("Entity.Concrete.AppUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ForgetPasswordCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsBlock")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FilialId");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Entity.Concrete.BodyShapingPackets", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Discount")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Packet")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<int?>("SessionCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("SessionDuration")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -145,26 +129,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.BodyShapingReports", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<int>("PacketId")
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("AppointmentsId")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("BodyShapingPacketCategoryId")
-                        .HasColumnType("int");
+                    b.HasKey("PacketId", "AppointmentsId");
 
-                    b.Property<int>("BodyShapingPacketsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BodyshapingAppointmentsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BodyShapingPacketsId");
-
-                    b.HasIndex("BodyshapingAppointmentsId");
+                    b.HasIndex("AppointmentsId");
 
                     b.ToTable("BodyShapingReports");
                 });
@@ -173,37 +146,37 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
-                    b.Property<int>("BodyShapingAppointmentId")
-                        .HasColumnType("int");
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Duration")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SessionName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("BodyShapingAppointmentId");
+                    b.HasIndex("AppointmentId");
 
                     b.ToTable("BodyShapingSessionLists");
                 });
@@ -212,43 +185,43 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("BuyingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsInjection")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateTime>("RemaingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("ReturnMoney")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -267,51 +240,55 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("HandDescription")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsInjection")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsReserved")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsStarted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("ReservationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("ReturnMoney")
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -330,28 +307,28 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Discount")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -362,53 +339,68 @@ namespace Data.Migrations
                     b.ToTable("CistkaCategories");
                 });
 
+            modelBuilder.Entity("Entity.Concrete.CistkaReports", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AppointmentId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CistkaReports");
+                });
+
             modelBuilder.Entity("Entity.Concrete.CosmetologyAppointment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CosmetologyDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomersId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsStart")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("OutTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateTime?>("StartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("CustomersId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("FilialId");
 
@@ -421,25 +413,25 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Discount")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
 
@@ -450,23 +442,18 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.CosmetologyReport", b =>
                 {
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.HasKey("AppointmentId", "CategoryId");
 
-                    b.Property<int>("CosmetologyAppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CosmetologyCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CosmetologyAppointmentId");
-
-                    b.HasIndex("CosmetologyCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("CosmetologyReports");
                 });
@@ -475,34 +462,37 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Female")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("GiveBirthDate")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("GiveNumber")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<double?>("PhoneNumber")
-                        .HasColumnType("float");
+                        .HasMaxLength(15)
+                        .HasColumnType("double precision")
+                        .HasColumnName("PhoneNumber");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -515,13 +505,13 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FilialName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -532,42 +522,43 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("HandDescription")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("IncomeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateTime>("ReservationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -586,38 +577,28 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Discount")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HairCutAppointmentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("HairCutAppointmentId1")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
                     b.HasIndex("FilialId");
-
-                    b.HasIndex("HairCutAppointmentId");
-
-                    b.HasIndex("HairCutAppointmentId1");
 
                     b.HasIndex("MainCategoryId");
 
@@ -626,51 +607,38 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.HairCutCategoryReports", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("HairCutAppointmentId")
-                        .HasColumnType("int");
+                    b.HasKey("AppointmentId", "CategoryId");
 
-                    b.Property<int>("HairCutCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HairCutAppointmentId");
-
-                    b.HasIndex("HairCutCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("HairCutCategoryReports");
                 });
 
             modelBuilder.Entity("Entity.Concrete.HairCutItems", b =>
                 {
+                    b.Property<int?>("StockId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("HairCutAppointmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("IncomeId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.Property<int?>("StockId")
-                        .HasColumnType("int");
+                    b.HasKey("StockId", "AppointmentId");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("HairCutAppointmentId");
+                    b.HasIndex("AppointmentId");
 
                     b.HasIndex("IncomeId");
-
-                    b.HasIndex("StockId");
 
                     b.ToTable("HairCutItems");
                 });
@@ -679,42 +647,39 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("BuyingPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<int>("Count")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("IncomeDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("Decimal(6,2)");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<long>("StockId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("StockId1")
-                        .HasColumnType("int");
+                    b.Property<int>("StockId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -722,7 +687,7 @@ namespace Data.Migrations
 
                     b.HasIndex("FilialId");
 
-                    b.HasIndex("StockId1");
+                    b.HasIndex("StockId");
 
                     b.ToTable("Incomes");
                 });
@@ -731,22 +696,22 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("AutoDate")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -759,33 +724,38 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("LastOutMoneyDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("OutMoneyQuantity")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("FilialId");
 
@@ -796,91 +766,88 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CustomersId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("EditorName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("EndForSecond")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("HandDescription")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("ImplusCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("InCompleteEndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("InCompleteStartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InjectionDecription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsContiued")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsReserved")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsStarted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("NextSessionDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("PriceUpdateDescription")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("ReservationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("ReservationForSecond")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("StartForSecond")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("StartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("CustomersId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("FilialId");
 
@@ -891,23 +858,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.LazerAppointmentReports", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("LazerAppointmentId")
-                        .HasColumnType("int");
+                    b.HasKey("AppointmentId", "CategoryId");
 
-                    b.Property<int>("LazerCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LazerAppointmentId");
-
-                    b.HasIndex("LazerCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("LazerAppointmentReports");
                 });
@@ -916,25 +875,25 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.HasKey("Id");
 
@@ -949,43 +908,43 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsStart")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -1004,25 +963,25 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int?>("FilialId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -1037,21 +996,21 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("LipuckaAppointmentId")
-                        .HasColumnType("int");
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("LipuckaCategoriesId")
-                        .HasColumnType("int");
+                    b.Property<int>("CategoriesId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LipuckaAppointmentId");
+                    b.HasIndex("AppointmentId");
 
-                    b.HasIndex("LipuckaCategoriesId");
+                    b.HasIndex("CategoriesId");
 
                     b.ToTable("LipuckaReports");
                 });
@@ -1060,45 +1019,46 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsInjection")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsReserved")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsStart")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateTime>("ReservationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -1117,25 +1077,25 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -1146,20 +1106,35 @@ namespace Data.Migrations
                     b.ToTable("MakeUpCategories");
                 });
 
+            modelBuilder.Entity("Entity.Concrete.MakeUpReports", b =>
+                {
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AppointmentId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("MakeUpReports");
+                });
+
             modelBuilder.Entity("Entity.Concrete.Master", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Degree")
-                        .HasColumnType("bit");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -1168,23 +1143,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.MasterFilial", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("MasterId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    b.Property<int>("MasterId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("MasterId", "FilialId");
 
                     b.HasIndex("FilialId");
-
-                    b.HasIndex("MasterId");
 
                     b.ToTable("MasterFilials");
                 });
@@ -1193,17 +1160,21 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("PositionId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MasterId");
+
+                    b.HasIndex("PositionId");
 
                     b.ToTable("MasterPositions");
                 });
@@ -1211,33 +1182,33 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.OutMoney", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("AddingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<int>("SpendCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("SpendCategoryId");
+                    b.HasIndex("FilialId");
 
                     b.ToTable("OutMoneys");
                 });
@@ -1246,43 +1217,46 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("EndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsStart")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MasterId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<decimal>("ReturnMoney")
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -1301,25 +1275,25 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CategoryName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<int?>("FilialId")
-                        .HasColumnType("int");
+                    b.Property<int>("FilialId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
@@ -1332,23 +1306,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.PirsinqReports", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
-                    b.Property<int>("PirsinqAppointmentId")
-                        .HasColumnType("int");
+                    b.HasKey("AppointmentId", "CategoryId");
 
-                    b.Property<int>("PirsinqCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PirsinqAppointmentId");
-
-                    b.HasIndex("PirsinqCategoryId");
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("PirsinqReports");
                 });
@@ -1357,16 +1323,16 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("PositionName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -1377,56 +1343,56 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("BuyingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("CustomerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsTimeOut")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int>("MinuteLimit")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("MoneyUpdateDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<int>("RemainingMinute")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("RemainingTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("ReturnMoney")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<int>("SolariumCategoriesId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("UsingMinute")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1445,28 +1411,28 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("IsDeactive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("MainCategoryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("Minute")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<int?>("UsingPeriod")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1479,30 +1445,30 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AppUserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
+
+                    b.Property<int>("AppointmentId")
+                        .HasColumnType("integer");
 
                     b.Property<int>("RemainingMinute")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SolariumAppointmentId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UsingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("UsingMinute")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.HasIndex("SolariumAppointmentId");
+                    b.HasIndex("AppointmentId");
 
                     b.ToTable("SolariumUsingLists");
                 });
@@ -1510,27 +1476,22 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.SpendCategory", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("integer");
 
                     b.Property<bool>("AutoDate")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FilialId");
 
                     b.ToTable("SpendCategories");
                 });
@@ -1539,38 +1500,38 @@ namespace Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("AddingDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("BuyingPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<int>("FilialId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("RemainCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("SellingCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("SellingPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(6,2)");
 
                     b.Property<int>("TotalCount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -1584,134 +1545,115 @@ namespace Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("text");
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("RoleClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("UserClaims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("UserLogins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("UserTokens");
                 });
 
             modelBuilder.Entity("Entity.Concrete.AppUser", b =>
@@ -1736,15 +1678,15 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.BodyShapingReports", b =>
                 {
-                    b.HasOne("Entity.Concrete.BodyShapingPackets", "BodyShapingPackets")
-                        .WithMany("BodyShapingPacketsReports")
-                        .HasForeignKey("BodyShapingPacketsId")
+                    b.HasOne("Entity.Concrete.BodyshapingAppointment", "BodyshapingAppointments")
+                        .WithMany("BodyShapingPacketReports")
+                        .HasForeignKey("AppointmentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.BodyshapingAppointment", "BodyshapingAppointments")
-                        .WithMany("BodyShapingPacketReports")
-                        .HasForeignKey("BodyshapingAppointmentsId")
+                    b.HasOne("Entity.Concrete.BodyShapingPackets", "BodyShapingPackets")
+                        .WithMany("BodyShapingPacketsReports")
+                        .HasForeignKey("PacketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1761,7 +1703,7 @@ namespace Data.Migrations
 
                     b.HasOne("Entity.Concrete.BodyshapingAppointment", "BodyShapingAppointment")
                         .WithMany("BodyShapingSessionLists")
-                        .HasForeignKey("BodyShapingAppointmentId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1778,7 +1720,7 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
                         .WithMany("BodyshapingAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1791,14 +1733,14 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("BodyShapingAppointment")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
 
                     b.Navigation("Filial");
 
@@ -1807,42 +1749,73 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.CistkaAppointment", b =>
                 {
-                    b.HasOne("Entity.Concrete.AppUser", null)
+                    b.HasOne("Entity.Concrete.AppUser", "AppUser")
                         .WithMany("CistkaAppointments")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
-                        .WithMany()
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
+                        .WithMany("CistkaAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("CistkaAppointment")
-                        .HasForeignKey("FilialId");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("CistkaAppointments")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Customers");
+
+                    b.Navigation("Filial");
 
                     b.Navigation("Master");
                 });
 
             modelBuilder.Entity("Entity.Concrete.CistkaCategory", b =>
                 {
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("CistkaCategory")
-                        .HasForeignKey("FilialId");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.CistkaCategory", "MainCategory")
                         .WithMany("ChildCategoryList")
                         .HasForeignKey("MainCategoryId");
 
+                    b.Navigation("Filial");
+
                     b.Navigation("MainCategory");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.CistkaReports", b =>
+                {
+                    b.HasOne("Entity.Concrete.CistkaAppointment", "CistkaAppointment")
+                        .WithMany("CistkaReports")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Concrete.CistkaCategory", "CistkaCategory")
+                        .WithMany("CistkaReports")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CistkaAppointment");
+
+                    b.Navigation("CistkaCategory");
                 });
 
             modelBuilder.Entity("Entity.Concrete.CosmetologyAppointment", b =>
@@ -1854,8 +1827,8 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Customers", "Customers")
-                        .WithMany()
-                        .HasForeignKey("CustomersId")
+                        .WithMany("CosmetologyAppointments")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1866,7 +1839,7 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("CosmetologyAppointment")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1893,13 +1866,13 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entity.Concrete.CosmetologyAppointment", "CosmetologyAppointment")
                         .WithMany("CosmetologyReports")
-                        .HasForeignKey("CosmetologyAppointmentId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.CosmetologyCategory", "CosmetologyCategory")
                         .WithMany("CosmetologyReports")
-                        .HasForeignKey("CosmetologyCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1911,7 +1884,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.Customers", b =>
                 {
                     b.HasOne("Entity.Concrete.Filial", "Filial")
-                        .WithMany("Customer")
+                        .WithMany("Customers")
                         .HasForeignKey("FilialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1921,48 +1894,52 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.HairCutAppointment", b =>
                 {
-                    b.HasOne("Entity.Concrete.AppUser", null)
+                    b.HasOne("Entity.Concrete.AppUser", "AppUser")
                         .WithMany("HairCutAppointments")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
-                        .WithMany()
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
+                        .WithMany("HairCutAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("HairCutAppointments")
-                        .HasForeignKey("FilialId");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("HairCutAppointments")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Customers");
+
+                    b.Navigation("Filial");
 
                     b.Navigation("Master");
                 });
 
             modelBuilder.Entity("Entity.Concrete.HairCutCategory", b =>
                 {
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("HairCutCategories")
-                        .HasForeignKey("FilialId");
-
-                    b.HasOne("Entity.Concrete.HairCutAppointment", null)
-                        .WithMany("HairCutCategories")
-                        .HasForeignKey("HairCutAppointmentId");
-
-                    b.HasOne("Entity.Concrete.HairCutAppointment", null)
-                        .WithMany("HairCutReport")
-                        .HasForeignKey("HairCutAppointmentId1");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.HairCutCategory", "MainCategory")
                         .WithMany("ChildCategory")
                         .HasForeignKey("MainCategoryId");
+
+                    b.Navigation("Filial");
 
                     b.Navigation("MainCategory");
                 });
@@ -1970,14 +1947,14 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.HairCutCategoryReports", b =>
                 {
                     b.HasOne("Entity.Concrete.HairCutAppointment", "HairCutAppointment")
-                        .WithMany()
-                        .HasForeignKey("HairCutAppointmentId")
+                        .WithMany("HairCutReport")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.HairCutCategory", "HairCutCategory")
-                        .WithMany()
-                        .HasForeignKey("HairCutCategoryId")
+                        .WithMany("HairCutCategoryReports")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1989,8 +1966,8 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.HairCutItems", b =>
                 {
                     b.HasOne("Entity.Concrete.HairCutAppointment", "HairCutAppointment")
-                        .WithMany()
-                        .HasForeignKey("HairCutAppointmentId")
+                        .WithMany("HairCutItems")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2000,7 +1977,9 @@ namespace Data.Migrations
 
                     b.HasOne("Entity.Concrete.Stock", "Stock")
                         .WithMany("HairCutItems")
-                        .HasForeignKey("StockId");
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HairCutAppointment");
 
@@ -2023,7 +2002,7 @@ namespace Data.Migrations
 
                     b.HasOne("Entity.Concrete.Stock", "Stock")
                         .WithMany("Incomes")
-                        .HasForeignKey("StockId1")
+                        .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2037,7 +2016,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.KassaActionCategory", b =>
                 {
                     b.HasOne("Entity.Concrete.Filial", "Filial")
-                        .WithMany()
+                        .WithMany("KassaActionCategories")
                         .HasForeignKey("FilialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2048,8 +2027,14 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.KassaActionList", b =>
                 {
                     b.HasOne("Entity.Concrete.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("KassaActions")
                         .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Concrete.KassaActionCategory", "KassaActionCategory")
+                        .WithMany("KassaActionList")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2062,6 +2047,8 @@ namespace Data.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Filial");
+
+                    b.Navigation("KassaActionCategory");
                 });
 
             modelBuilder.Entity("Entity.Concrete.LazerAppointment", b =>
@@ -2074,7 +2061,7 @@ namespace Data.Migrations
 
                     b.HasOne("Entity.Concrete.Customers", "Customers")
                         .WithMany("LazerAppointments")
-                        .HasForeignKey("CustomersId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2085,7 +2072,7 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("LazerAppointments")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2103,13 +2090,13 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entity.Concrete.LazerAppointment", "LazerAppointment")
                         .WithMany("LazerAppointmentReports")
-                        .HasForeignKey("LazerAppointmentId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.LazerCategory", "LazerCategory")
                         .WithMany("LazerAppointmentReports")
-                        .HasForeignKey("LazerCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2138,13 +2125,13 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.LipuckaAppointment", b =>
                 {
                     b.HasOne("Entity.Concrete.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("LipuckaAppointments")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
-                        .WithMany()
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
+                        .WithMany("LipuckaAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2156,14 +2143,14 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("LipuckaAppointments")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
 
                     b.Navigation("Filial");
 
@@ -2187,13 +2174,13 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entity.Concrete.LipuckaAppointment", "LipuckaAppointment")
                         .WithMany("LipuckaReports")
-                        .HasForeignKey("LipuckaAppointmentId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.LipuckaCategories", "LipuckaCategories")
-                        .WithMany()
-                        .HasForeignKey("LipuckaCategoriesId")
+                        .WithMany("LipuckaReports")
+                        .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2204,54 +2191,85 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.MakeUpAppointment", b =>
                 {
-                    b.HasOne("Entity.Concrete.AppUser", null)
+                    b.HasOne("Entity.Concrete.AppUser", "AppUser")
                         .WithMany("MakeUpAppointments")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
-                        .WithMany()
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
+                        .WithMany("MakeUpAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("MakeUpAppointments")
-                        .HasForeignKey("FilialId");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("MakeUpAppointment")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Customers");
+
+                    b.Navigation("Filial");
 
                     b.Navigation("Master");
                 });
 
             modelBuilder.Entity("Entity.Concrete.MakeUpCategory", b =>
                 {
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("MakeUpCategory")
-                        .HasForeignKey("FilialId");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.MakeUpCategory", "MainCategory")
-                        .WithMany("MakeUpCategories")
+                        .WithMany("ChildCategories")
                         .HasForeignKey("MainCategoryId");
 
+                    b.Navigation("Filial");
+
                     b.Navigation("MainCategory");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.MakeUpReports", b =>
+                {
+                    b.HasOne("Entity.Concrete.MakeUpAppointment", "MakeUpAppointment")
+                        .WithMany("MakeUpReports")
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Concrete.MakeUpCategory", "MakeUpCategory")
+                        .WithMany("MakeUpReports")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MakeUpAppointment");
+
+                    b.Navigation("MakeUpCategory");
                 });
 
             modelBuilder.Entity("Entity.Concrete.MasterFilial", b =>
                 {
                     b.HasOne("Entity.Concrete.Filial", "Filial")
-                        .WithMany("MasteerFilial")
+                        .WithMany("MasterFilial")
                         .HasForeignKey("FilialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("MasterFilial")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2259,6 +2277,25 @@ namespace Data.Migrations
                     b.Navigation("Filial");
 
                     b.Navigation("Master");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.MasterPosition", b =>
+                {
+                    b.HasOne("Entity.Concrete.Master", "Masters")
+                        .WithMany("MasterPosition")
+                        .HasForeignKey("MasterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entity.Concrete.Position", "Positions")
+                        .WithMany("MasterPositions")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Masters");
+
+                    b.Navigation("Positions");
                 });
 
             modelBuilder.Entity("Entity.Concrete.OutMoney", b =>
@@ -2269,13 +2306,21 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
+                        .WithMany("OutMoney")
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Entity.Concrete.SpendCategory", "SpendCategory")
-                        .WithMany()
-                        .HasForeignKey("SpendCategoryId")
+                        .WithMany("OutMoney")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
+
+                    b.Navigation("Filial");
 
                     b.Navigation("SpendCategory");
                 });
@@ -2283,13 +2328,13 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.PirsinqAppointment", b =>
                 {
                     b.HasOne("Entity.Concrete.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("PirsinqAppointments")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
-                        .WithMany()
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
+                        .WithMany("PirsinqAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2301,14 +2346,14 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Master", "Master")
-                        .WithMany()
+                        .WithMany("PirsinqAppointments")
                         .HasForeignKey("MasterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
 
                     b.Navigation("Filial");
 
@@ -2317,13 +2362,17 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.PirsinqCategory", b =>
                 {
-                    b.HasOne("Entity.Concrete.Filial", null)
+                    b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("PirsinqCategories")
-                        .HasForeignKey("FilialId");
+                        .HasForeignKey("FilialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Entity.Concrete.PirsinqCategory", "MainCategory")
                         .WithMany("ChildCategory")
                         .HasForeignKey("MainCategoryId");
+
+                    b.Navigation("Filial");
 
                     b.Navigation("MainCategory");
                 });
@@ -2332,13 +2381,13 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entity.Concrete.PirsinqAppointment", "PirsinqAppointment")
                         .WithMany("PirsinqReports")
-                        .HasForeignKey("PirsinqAppointmentId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.PirsinqCategory", "PirsinqCategory")
                         .WithMany("PirsinqReports")
-                        .HasForeignKey("PirsinqCategoryId")
+                        .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2355,7 +2404,7 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entity.Concrete.Customers", "Customer")
+                    b.HasOne("Entity.Concrete.Customers", "Customers")
                         .WithMany("SolariumAppointments")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2375,7 +2424,7 @@ namespace Data.Migrations
 
                     b.Navigation("AppUser");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
 
                     b.Navigation("Filial");
 
@@ -2399,7 +2448,7 @@ namespace Data.Migrations
 
                     b.HasOne("Entity.Concrete.SolariumAppointment", "SolariumAppointment")
                         .WithMany("SolariumUsingList")
-                        .HasForeignKey("SolariumAppointmentId")
+                        .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2412,7 +2461,7 @@ namespace Data.Migrations
                 {
                     b.HasOne("Entity.Concrete.Filial", "Filial")
                         .WithMany("SpendCategory")
-                        .HasForeignKey("FilialId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2422,7 +2471,7 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.Stock", b =>
                 {
                     b.HasOne("Entity.Concrete.AppUser", "AppUser")
-                        .WithMany()
+                        .WithMany("Stocks")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2436,57 +2485,6 @@ namespace Data.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Filial");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("Entity.Concrete.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("Entity.Concrete.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Entity.Concrete.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("Entity.Concrete.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entity.Concrete.AppUser", b =>
@@ -2503,15 +2501,23 @@ namespace Data.Migrations
 
                     b.Navigation("Incomes");
 
+                    b.Navigation("KassaActions");
+
                     b.Navigation("LazerAppointments");
+
+                    b.Navigation("LipuckaAppointments");
 
                     b.Navigation("MakeUpAppointments");
 
                     b.Navigation("OutMoney");
 
+                    b.Navigation("PirsinqAppointments");
+
                     b.Navigation("SolariumAppointments");
 
                     b.Navigation("SolariumUsingList");
+
+                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("Entity.Concrete.BodyShapingPackets", b =>
@@ -2528,9 +2534,16 @@ namespace Data.Migrations
                     b.Navigation("BodyShapingSessionLists");
                 });
 
+            modelBuilder.Entity("Entity.Concrete.CistkaAppointment", b =>
+                {
+                    b.Navigation("CistkaReports");
+                });
+
             modelBuilder.Entity("Entity.Concrete.CistkaCategory", b =>
                 {
                     b.Navigation("ChildCategoryList");
+
+                    b.Navigation("CistkaReports");
                 });
 
             modelBuilder.Entity("Entity.Concrete.CosmetologyAppointment", b =>
@@ -2549,7 +2562,19 @@ namespace Data.Migrations
                 {
                     b.Navigation("BodyshapingAppointments");
 
+                    b.Navigation("CistkaAppointments");
+
+                    b.Navigation("CosmetologyAppointments");
+
+                    b.Navigation("HairCutAppointments");
+
                     b.Navigation("LazerAppointments");
+
+                    b.Navigation("LipuckaAppointments");
+
+                    b.Navigation("MakeUpAppointments");
+
+                    b.Navigation("PirsinqAppointments");
 
                     b.Navigation("SolariumAppointments");
                 });
@@ -2566,13 +2591,15 @@ namespace Data.Migrations
 
                     b.Navigation("CosmetologyAppointments");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Customers");
 
                     b.Navigation("HairCutAppointments");
 
                     b.Navigation("HairCutCategories");
 
                     b.Navigation("Income");
+
+                    b.Navigation("KassaActionCategories");
 
                     b.Navigation("KassaActionList");
 
@@ -2588,7 +2615,9 @@ namespace Data.Migrations
 
                     b.Navigation("MakeUpCategory");
 
-                    b.Navigation("MasteerFilial");
+                    b.Navigation("MasterFilial");
+
+                    b.Navigation("OutMoney");
 
                     b.Navigation("PirsinqAppointments");
 
@@ -2603,7 +2632,7 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entity.Concrete.HairCutAppointment", b =>
                 {
-                    b.Navigation("HairCutCategories");
+                    b.Navigation("HairCutItems");
 
                     b.Navigation("HairCutReport");
                 });
@@ -2611,11 +2640,18 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.HairCutCategory", b =>
                 {
                     b.Navigation("ChildCategory");
+
+                    b.Navigation("HairCutCategoryReports");
                 });
 
             modelBuilder.Entity("Entity.Concrete.Income", b =>
                 {
                     b.Navigation("HairCutItems");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.KassaActionCategory", b =>
+                {
+                    b.Navigation("KassaActionList");
                 });
 
             modelBuilder.Entity("Entity.Concrete.LazerAppointment", b =>
@@ -2638,11 +2674,43 @@ namespace Data.Migrations
             modelBuilder.Entity("Entity.Concrete.LipuckaCategories", b =>
                 {
                     b.Navigation("ChildCategories");
+
+                    b.Navigation("LipuckaReports");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.MakeUpAppointment", b =>
+                {
+                    b.Navigation("MakeUpReports");
                 });
 
             modelBuilder.Entity("Entity.Concrete.MakeUpCategory", b =>
                 {
-                    b.Navigation("MakeUpCategories");
+                    b.Navigation("ChildCategories");
+
+                    b.Navigation("MakeUpReports");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.Master", b =>
+                {
+                    b.Navigation("BodyShapingAppointment");
+
+                    b.Navigation("CistkaAppointments");
+
+                    b.Navigation("CosmetologyAppointment");
+
+                    b.Navigation("HairCutAppointments");
+
+                    b.Navigation("LazerAppointments");
+
+                    b.Navigation("LipuckaAppointments");
+
+                    b.Navigation("MakeUpAppointment");
+
+                    b.Navigation("MasterFilial");
+
+                    b.Navigation("MasterPosition");
+
+                    b.Navigation("PirsinqAppointments");
                 });
 
             modelBuilder.Entity("Entity.Concrete.PirsinqAppointment", b =>
@@ -2657,6 +2725,11 @@ namespace Data.Migrations
                     b.Navigation("PirsinqReports");
                 });
 
+            modelBuilder.Entity("Entity.Concrete.Position", b =>
+                {
+                    b.Navigation("MasterPositions");
+                });
+
             modelBuilder.Entity("Entity.Concrete.SolariumAppointment", b =>
                 {
                     b.Navigation("SolariumUsingList");
@@ -2667,6 +2740,11 @@ namespace Data.Migrations
                     b.Navigation("ChildCategories");
 
                     b.Navigation("SolariumAppointment");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.SpendCategory", b =>
+                {
+                    b.Navigation("OutMoney");
                 });
 
             modelBuilder.Entity("Entity.Concrete.Stock", b =>

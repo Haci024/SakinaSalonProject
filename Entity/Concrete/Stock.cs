@@ -8,7 +8,7 @@ namespace Entity.Concrete
 {
     public class Stock
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public string ProductName { get; set; }
 
@@ -35,6 +35,8 @@ namespace Entity.Concrete
         public int FilialId { get; set; }
 
         public IEnumerable<HairCutItems> HairCutItems { get; set; }
+
+        
 
 
 

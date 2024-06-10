@@ -15,8 +15,7 @@ namespace Data.Configs.Db1Configs
         {
             builder.HasKey(x => x.Id);
             builder.HasOne(x=>x.MainCategory).WithMany(x=>x.ChildCategory).HasForeignKey(x=>x.Id);
-            builder.HasMany(x => x.ChildCategory).WithOne(x => x.MainCategory).HasForeignKey(x => x.Id);
-            builder.HasOne(x => x.MainCategory).WithMany(x=>x.ChildCategory).HasForeignKey(x=>x.Id);
+            builder.HasMany(x => x.ChildCategory).WithOne(x => x.MainCategory).HasForeignKey(x => x.MainCategoryId);
             builder.HasMany(x => x.BodyShapingPacketsReports).WithOne(x=>x.BodyShapingPackets).HasForeignKey(x=>x.PacketId);
             builder.Property(x => x.Price)
        .HasColumnType("decimal(6,2)");
