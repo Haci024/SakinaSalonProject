@@ -7,7 +7,7 @@ using Entity.Concrete;
 using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<AppDbContext>();
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ILazerAppointmentService, LazerAppointmentManager>();
@@ -25,14 +25,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
-{
-	options.Password.RequireUppercase = false;
-	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuöğıəşçvwxyzABCDEFGHIJŞÖĞIƏKLMNOPÇQRSTUVWXYZ0123456789.";
-
-
-
-}).AddEntityFrameworkStores<AppDbContext>();
+//builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+//{
+//	options.Password.RequireUppercase = false;
+//	options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuöğıəşçvwxyzABCDEFGHIJŞÖĞIƏKLMNOPÇQRSTUVWXYZ0123456789.";
+//});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

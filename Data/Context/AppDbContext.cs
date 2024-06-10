@@ -15,7 +15,8 @@ namespace Data.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-			optionsBuilder.UseNpgsql("Host = Odissey; Port = 5432; Database = SakinaSalonDB; User Id = myuser; Password = mypassword");
+			//PostgreSql connection
+			optionsBuilder.UseNpgsql("Server=localhost;Port=5432;Database=SakinaSalonDBB;User Id=postgres;Password=12345");
 
 			//optionsBuilder.UseSqlServer("server=Odissey;initial catalog=SakinaSalonDB;integrated Security=true;TrustServerCertificate=true;");
 
