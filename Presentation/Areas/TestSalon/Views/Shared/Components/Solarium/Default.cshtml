@@ -1,0 +1,16 @@
+﻿<li class="sidebar-item">
+	<a data-bs-target="#solarium" data-bs-toggle="collapse" class="sidebar-link collapsed">
+		<i class="align-middle me-2 fas fa-fw fa-flask"></i> <span class="align-middle">Solarium</span>
+	</a>
+	<ul id="solarium" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+		<li class="sidebar-item"><a class='sidebar-link' href='ui-alerts.html'>Aktiv paketlər</a></li>
+		<li class="sidebar-item"><a class='sidebar-link' href='ui-buttons.html'>İmtina edilənlər</a></li>
+		<li class="sidebar-item"><a class='sidebar-link' href='ui-cards.html'>Müddəti keçmişlər</a></li>
+     @if (User.IsInRole("Admin"))
+		{
+			<li class="sidebar-item"><a class='sidebar-link' href='ui-cards.html'>Geri ödəniş</a></li>
+			<li class="sidebar-item"><a class='sidebar-link' href='ui-cards.html'>Paket qiymətlərində dəyişiklik</a></li>
+		}
+
+	</ul>
+</li>

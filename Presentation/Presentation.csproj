@@ -1,0 +1,120 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\TestSalon\Data\" />
+    <Folder Include="Areas\TestSalon\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\adminTemplate\calendar.html" />
+    <None Include="wwwroot\adminTemplate\charts-apexcharts.html" />
+    <None Include="wwwroot\adminTemplate\charts-chartjs.html" />
+    <None Include="wwwroot\adminTemplate\css\modern.css" />
+    <None Include="wwwroot\adminTemplate\dashboard-analytics.html" />
+    <None Include="wwwroot\adminTemplate\dashboard-default.html" />
+    <None Include="wwwroot\adminTemplate\dashboard-default2a29.html" />
+    <None Include="wwwroot\adminTemplate\dashboard-default4965.html" />
+    <None Include="wwwroot\adminTemplate\dashboard-default6a08.html" />
+    <None Include="wwwroot\adminTemplate\dashboard-e-commerce.html" />
+    <None Include="wwwroot\adminTemplate\docs-changelog.html" />
+    <None Include="wwwroot\adminTemplate\docs-getting-started.html" />
+    <None Include="wwwroot\adminTemplate\docs-plugins.html" />
+    <None Include="wwwroot\adminTemplate\fonts\fa-brands-400.ttf" />
+    <None Include="wwwroot\adminTemplate\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\adminTemplate\fonts\fa-regular-400.ttf" />
+    <None Include="wwwroot\adminTemplate\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\adminTemplate\fonts\fa-solid-900.ttf" />
+    <None Include="wwwroot\adminTemplate\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\adminTemplate\forms-advanced-elements.html" />
+    <None Include="wwwroot\adminTemplate\forms-basic-elements.html" />
+    <None Include="wwwroot\adminTemplate\forms-editors.html" />
+    <None Include="wwwroot\adminTemplate\forms-floating-labels.html" />
+    <None Include="wwwroot\adminTemplate\forms-input-groups.html" />
+    <None Include="wwwroot\adminTemplate\forms-layouts.html" />
+    <None Include="wwwroot\adminTemplate\forms-validation.html" />
+    <None Include="wwwroot\adminTemplate\forms-wizard.html" />
+    <None Include="wwwroot\adminTemplate\icons-feather.html" />
+    <None Include="wwwroot\adminTemplate\icons-font-awesome.html" />
+    <None Include="wwwroot\adminTemplate\icons-ion.html" />
+    <None Include="wwwroot\adminTemplate\img\avatars\avatar-2.jpg" />
+    <None Include="wwwroot\adminTemplate\img\avatars\avatar-3.jpg" />
+    <None Include="wwwroot\adminTemplate\img\avatars\avatar-4.jpg" />
+    <None Include="wwwroot\adminTemplate\img\avatars\avatar-5.jpg" />
+    <None Include="wwwroot\adminTemplate\img\avatars\avatar.jpg" />
+    <None Include="wwwroot\adminTemplate\img\brands\b.svg" />
+    <None Include="wwwroot\adminTemplate\img\brands\bootstrap.png" />
+    <None Include="wwwroot\adminTemplate\img\brands\npm.svg" />
+    <None Include="wwwroot\adminTemplate\img\brands\sass.svg" />
+    <None Include="wwwroot\adminTemplate\img\brands\webpack.svg" />
+    <None Include="wwwroot\adminTemplate\img\photos\unsplash-1.jpg" />
+    <None Include="wwwroot\adminTemplate\img\photos\unsplash-2.jpg" />
+    <None Include="wwwroot\adminTemplate\img\photos\unsplash-3.jpg" />
+    <None Include="wwwroot\adminTemplate\img\screenshots\dark.png" />
+    <None Include="wwwroot\adminTemplate\img\screenshots\dashboard-analytics.png" />
+    <None Include="wwwroot\adminTemplate\img\screenshots\dashboard-default.png" />
+    <None Include="wwwroot\adminTemplate\img\screenshots\dashboard-e-commerce.png" />
+    <None Include="wwwroot\adminTemplate\img\screenshots\light.png" />
+    <None Include="wwwroot\adminTemplate\img\screenshots\modern.png" />
+    <None Include="wwwroot\adminTemplate\index.html" />
+    <None Include="wwwroot\adminTemplate\js\app.js" />
+    <None Include="wwwroot\adminTemplate\js\settings.js" />
+    <None Include="wwwroot\adminTemplate\maps-google.html" />
+    <None Include="wwwroot\adminTemplate\maps-vector.html" />
+    <None Include="wwwroot\adminTemplate\pages-404.html" />
+    <None Include="wwwroot\adminTemplate\pages-500.html" />
+    <None Include="wwwroot\adminTemplate\pages-blank.html" />
+    <None Include="wwwroot\adminTemplate\pages-chat.html" />
+    <None Include="wwwroot\adminTemplate\pages-clients.html" />
+    <None Include="wwwroot\adminTemplate\pages-invoice.html" />
+    <None Include="wwwroot\adminTemplate\pages-pricing.html" />
+    <None Include="wwwroot\adminTemplate\pages-reset-password.html" />
+    <None Include="wwwroot\adminTemplate\pages-settings.html" />
+    <None Include="wwwroot\adminTemplate\pages-sign-in.html" />
+    <None Include="wwwroot\adminTemplate\pages-sign-up.html" />
+    <None Include="wwwroot\adminTemplate\pages-tasks.html" />
+    <None Include="wwwroot\adminTemplate\tables-bootstrap.html" />
+    <None Include="wwwroot\adminTemplate\tables-datatables-ajax.html" />
+    <None Include="wwwroot\adminTemplate\tables-datatables-buttons.html" />
+    <None Include="wwwroot\adminTemplate\tables-datatables-column-search.html" />
+    <None Include="wwwroot\adminTemplate\tables-datatables-fixed-header.html" />
+    <None Include="wwwroot\adminTemplate\tables-datatables-multi.html" />
+    <None Include="wwwroot\adminTemplate\tables-datatables-responsive.html" />
+    <None Include="wwwroot\adminTemplate\ui-alerts.html" />
+    <None Include="wwwroot\adminTemplate\ui-buttons.html" />
+    <None Include="wwwroot\adminTemplate\ui-cards.html" />
+    <None Include="wwwroot\adminTemplate\ui-general.html" />
+    <None Include="wwwroot\adminTemplate\ui-grid.html" />
+    <None Include="wwwroot\adminTemplate\ui-modals.html" />
+    <None Include="wwwroot\adminTemplate\ui-notifications.html" />
+    <None Include="wwwroot\adminTemplate\ui-offcanvas.html" />
+    <None Include="wwwroot\adminTemplate\ui-placeholders.html" />
+    <None Include="wwwroot\adminTemplate\ui-tabs.html" />
+    <None Include="wwwroot\adminTemplate\ui-typography.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Business\Business.csproj" />
+    <ProjectReference Include="..\Data\Data.csproj" />
+  </ItemGroup>
+
+</Project>

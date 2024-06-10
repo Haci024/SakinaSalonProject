@@ -1,0 +1,26 @@
+﻿
+
+<li class="sidebar-item">
+	<a data-bs-target="#auth" data-bs-toggle="collapse" class="sidebar-link collapsed">
+		<i class="align-middle me-2 fas fa-fw fa-sign-in-alt"></i> <span class="align-middle">Hesabım</span>
+	</a>
+	<ul id="auth" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+		<li class="sidebar-item">
+			<a class='sidebar-link' asp-controller="Users" asp-action="MyProfile">
+				Məlumatlarım
+			</a>
+		</li>
+		<li class="sidebar-item">
+			<a class='sidebar-link' asp-controller="Users" asp-action="ResetPassword">
+				Yeni şifrə
+			</a>
+		</li>
+	
+		<li class="sidebar-item">
+			<a class='sidebar-link' asp-controller="Users" asp-action="Logout">
+				Hesabdan çıxış
+			</a>
+		</li>
+	</ul>
+</li>
+

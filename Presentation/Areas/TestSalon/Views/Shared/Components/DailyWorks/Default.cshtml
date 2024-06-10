@@ -1,0 +1,12 @@
+﻿
+<li class="sidebar-item active">
+	<a data-bs-target="#dashboards" data-bs-toggle="collapse" class="sidebar-link">
+		<i class="align-middle me-2 fas fa-fw fa-pen"></i> <span class="align-middle">Gündəlik işlər</span>
+	</a>
+	<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
+		<li class="sidebar-item"><a class='sidebar-link' asp-controller="Dashboard" asp-action="Index">Əsas səhifə</a></li>
+		<li class="sidebar-item active"><a class='sidebar-link' asp-controller="Kassa" asp-action="KassaPage">Kassa</a></li>
+		<li class="sidebar-item active"><a class='sidebar-link' asp-controller="Customer" asp-action="BirthDateList">Ad günləri</a></li>
+
+	</ul>
+</li>

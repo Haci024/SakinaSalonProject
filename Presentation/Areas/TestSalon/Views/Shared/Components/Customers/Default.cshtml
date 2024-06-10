@@ -1,0 +1,20 @@
+﻿<li class="sidebar-item">
+	<a data-bs-target="#customers" data-bs-toggle="collapse" class="sidebar-link collapsed">
+		<i class="align-middle me-2 fas fa-fw fa-chart-pie"></i><span class="align-middle">Müştərilər</span>
+		
+	</a>
+	<ul id="customers" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+		<li class="sidebar-item">
+		<li class="sidebar-item"><a class='sidebar-link' href='charts-apexcharts.html'>Yeni müştəri</a></li>
+		<li class="sidebar-item"><a class='sidebar-link' href='charts-apexcharts.html'>Qadınlar</a></li>
+			<a class='sidebar-link' href='charts-chartjs.html'>Kişilər</a>
+		</li>
+
+		@if (User.IsInRole("Admin"))
+		{
+			<li class="sidebar-item"><a class='sidebar-link' href='charts-apexcharts.html'>Geri ödəniş</a></li>
+		}
+		
+
+	</ul>
+</li>
