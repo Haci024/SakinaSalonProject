@@ -6,7 +6,7 @@
 	
   
 }
-}
+
 <style>
 	.table thead select {
 		width: 100%;
@@ -20,11 +20,20 @@
 		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 	}
 
+	.nav-link.active {
+		color: #fff !important;
+		background-color: #007bff !important; 
+	}
 		.table thead select:focus {
 			border-color: #5cb3fd;
 			outline: 0;
 			box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(28,135,243,0.6);
 		}
+
+	.nav-link.active:hover {
+		background-color: #ddd; 
+		color: #000; 
+	}
 </style>
 <div class="container-fluid">
 
@@ -74,14 +83,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>	
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -151,14 +160,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -215,7 +224,7 @@
 								</div>
 								<div class="tab-pane" id="tab-3" role="tabpanel">
 									<h4 class="tab-title">One more</h4>
-									<table class=" table table-striped datatables-column-search-select-inputs"" style="width:100%">
+									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -228,14 +237,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -305,14 +314,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -369,7 +378,7 @@
 								</div>
 								<div class="tab-pane" id="tab-5" role="tabpanel">
 									<h4 class="tab-title">One more</h4>
-									<table  class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -382,14 +391,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -459,14 +468,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -536,14 +545,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -613,14 +622,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -690,14 +699,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -767,14 +776,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -844,14 +853,14 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
-												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
+												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -914,18 +923,6 @@
 				</div>
 			</div>
 		</div>
-
-		
-
-		
-
-		
-
-		
-
-		
-
-		
 	</div>
 
 </div>
@@ -933,31 +930,24 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
-		$('.datatables-column-search-select-inputs').DataTable({
+
+
+		var table = $('.datatables-column-search-select-inputs').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5,6,7,8] }
+			],
 			initComplete: function () {
-				this.api().columns().every(function (index) {
+				var columns = this.api().columns();
+
+
+				columns.every(function () {
 					var column = this;
-					var select = $('thead select').eq(index);
-					column.data().unique().sort().each(function (d, j) {
-						select.append('<option value="' + d + '">' + d + '</option>');
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
 					});
 				});
-			}
-		});
-	});
-	document.addEventListener("DOMContentLoaded", function () {
-		$('.datatables-column-search-select-inputs2').DataTable({
-			initComplete: function () {
-				this.api().columns().every(function (index) {
-					var column = this;
-					var select = $('thead select').eq(index);
-					column.data().unique().sort().each(function (d, j) {
-						select.append('<option value="' + d + '">' + d + '</option>');
-					});
-				});
+
 			}
 		});
 	});
 </script>
-
-

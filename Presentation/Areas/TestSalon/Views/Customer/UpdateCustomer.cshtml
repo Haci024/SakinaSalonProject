@@ -1,0 +1,62 @@
+﻿@model DTO.DTOS.CustomerDTO.UpdateCustomerDTO
+@{
+    ViewData["Title"] = "UpdateCustomer";
+    Layout = "~/Areas/TestSalon/Views/Shared/_Salon1Layout.cshtml";
+}
+
+<style>
+
+    form {
+        margin: 25px;
+    }
+
+    input, label {
+        margin: 8px;
+    }
+</style>
+<div class="container-fluid">
+
+    <div class="header">
+        <h1 class="header-title">
+            Müştəri məlumatlarındə düzəliş
+        </h1>
+
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+
+
+            <div class="card">
+
+
+                <form method="post">
+                    <label class="form-label">Ad və soyad</label>
+                    <input asp-for="FullName" type="text" class="form-control" placeholder="ad və soyad">
+
+                    <label>Telefon nömrəsi <span class="font-13" style="font:bold;color:red">Nümunə :"0555555555"</span></label>
+
+                    <div></div>
+                    <input type="text" asp-for="PhoneNumber" name="PhoneNumber" class="form-control" data-mask="0000000000" placeholder="telefon nömrəsi">
+                    <div></div>
+                    <label class="form-label">Doğum tarixi</label>
+
+                    
+                    <input type="date" asp-for="BirthDate" name="BirthDate" class="form-control" placeholder="Doğum tarixi">
+                    <div asp-validation-summary="ModelOnly" style="color:red;font:bolder"></div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Əlavə et</button>
+                        <a asp-controller="Customer" asp-action="AllCustomers" class="btn btn-success">Geri</a>
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+

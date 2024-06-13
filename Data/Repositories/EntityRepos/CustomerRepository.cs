@@ -19,33 +19,28 @@ namespace Data.Repositories.Db1Repository
         {
             _db = db;   
         }
-
         public async Task<IEnumerable<Customers>> ActiveCustomerList(int filialId)
         {
             return await _db.Customers.Where(x=>x.Status==true).ToListAsync();
         }
-
         public async Task<IEnumerable<Customers>> BirthDateList(int filialId)
         {
-            return await _db.Customers.Include(x=>x.Filial).Where(x => x.Status == true && x.BirthDate.Value.Date==DateTime.Today.Date && x.FilialId==filialId).ToListAsync();
-        }
+			DateTime today = TimeZoneInfo.ConvertTime(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time"));
 
+			return await _db.Customers.Include(x=>x.Filial).Where(x => x.Status == true  && x.BirthDate.Value.Date.Day==today.Day && x.BirthDate.Value.Date.Month==today.Month  && x.FilialId==filialId).ToListAsync();
+        }
         public async Task<IEnumerable<Customers>> CustomerList(int filialId)
         {
             return await _db.Customers.Include(x=>x.Filial).Where(x=>x.FilialId==filialId).ToListAsync(); 
         }
-
         public async Task<IEnumerable<Customers>> FemaleList(int filialId)
-        {
-            
+        {         
             return await _db.Customers.Include(x => x.Filial).Where(x => x.Female == true && x.FilialId == filialId).ToListAsync();
         }
-        
         public async Task<IEnumerable<Customers>> InActiveCustomerList(int filialId)
         {
             return await _db.Customers.Include(x=>x.Filial).Where(x => x.Status==false && x.FilialId==filialId).ToListAsync();
         }
-
         public async Task<IEnumerable<Customers>> MaleList(int filialId)
         {
             return await _db.Customers.Include(x => x.Filial).Where(x=>x.Female==false).ToListAsync();
@@ -53,6 +48,35 @@ namespace Data.Repositories.Db1Repository
         public async Task<Customers> SelectedCustomer(int CustomerId, int filialId)
         {
             return await _db.Customers.Include(x => x.Filial).Where(x => x.Id == CustomerId && x.FilialId == filialId).FirstOrDefaultAsync();
+
+
         }
-    }
+		public int BirthDateCount(int filialId)
+		{
+			DateTime today = TimeZoneInfo.ConvertTime(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Azerbaijan Standard Time"));
+
+            
+
+            return (_db.Customers.Include(x => x.Filial).Where(x => x.Status == true  && x.BirthDate.Value.Date.Day == today.Day && x.BirthDate.Value.Date.Month == today.Month && x.FilialId == filialId).ToList()).Count();
+		}
+
+		public bool IsRegistered(string PhoneNumber, int filialId)
+		{
+
+			if (string.IsNullOrEmpty(PhoneNumber))
+			{
+				return false;
+			}
+		    if (_db.Customers.Where(x => x.FilialId == filialId).Any(x => x.PhoneNumber == PhoneNumber))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+
+		}
+	}
 }

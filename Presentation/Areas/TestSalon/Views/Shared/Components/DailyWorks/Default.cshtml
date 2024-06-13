@@ -6,7 +6,9 @@
 	<ul id="dashboards" class="sidebar-dropdown list-unstyled collapse show" data-bs-parent="#sidebar">
 		<li class="sidebar-item"><a class='sidebar-link' asp-controller="Dashboard" asp-action="Index">Əsas səhifə</a></li>
 		<li class="sidebar-item active"><a class='sidebar-link' asp-controller="Kassa" asp-action="KassaPage">Kassa</a></li>
-		<li class="sidebar-item active"><a class='sidebar-link' asp-controller="Customer" asp-action="BirthDateList">Ad günləri</a></li>
+		<li class="sidebar-item active"><a class='sidebar-link' asp-controller="Customer" asp-action="BirthDateList">Ad günləri
+				<span class="sidebar-badge badge rounded-pill bg-primary">@ViewBag.BirthDateCount</span>
+		</a></li>
 
 	</ul>
-</li>
+</li> 

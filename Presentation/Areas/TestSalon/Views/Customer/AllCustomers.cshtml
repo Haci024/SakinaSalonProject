@@ -1,0 +1,148 @@
+﻿@model IEnumerable<DTO.DTOS.CustomerDTO.CustomerListDTO>
+@{
+    ViewData["Title"] = "AllCustomers";
+    Layout = "~/Areas/TestSalon/Views/Shared/_Salon1Layout.cshtml";
+    int num = 0;
+}
+
+<style>
+    .table thead input {
+        width: 100%;
+        padding: 5px;
+        font-size: 14px;
+        line-height: 1.5;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    }
+
+    .nav-link.active {
+        color: #fff !important;
+        background-color: #007bff !important;
+    }
+
+    .table thead input:focus {
+        border-color: #5cb3fd;
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(28,135,243,0.6);
+    }
+
+    .nav-link.active:hover {
+        background-color: #ddd;
+        color: #000;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="header">
+        <h1 class="header-title">
+            Bütün müştərilər
+        </h1>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Müştəri</th>
+                                <th>Nömrə</th>
+                                <th>Doğum tarixi</th>
+                                <th>Status</th>
+                                <th>Əməliyyatlar</th>
+                            </tr>
+                            <tr>
+                                <th><input type="text" class="form-control column-filter" placeholder=" No" disabled></th>
+                                <th><input type="text" class="form-control column-filter" placeholder=" Müştəri"></th>
+                                <th><input type="text" data-mask="0000000000" class="form-control column-filter" placeholder=" Nömrə"></th>
+                                <th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder=" Doğum tarixi" title="Please enter a date in the format dd.mm.yyyy"></th>
+
+                                <th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
+                                <th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@(num = num + 1)</td>
+                                    <td>@item.FullName</td>
+                                    <td>
+                                        @if (item.PhoneNumber!=null)
+                                        {
+                                            @item.PhoneNumber
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red"><b>Nömrə verməyib</b></span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (@item.BirthDate.HasValue)
+                                        {
+                                            @item.BirthDate.Value.ToString("dd.MM.yyyy")
+                                        }  
+                                        else
+                                        {
+                                            <span style="color:red"><b>Doğum tarixi verməyib!</b></span>
+                                        
+                                        }
+                                       
+                                         
+                                        
+                                    
+                                    </td>
+                                    <td>
+                                        @if (item.Status)
+                                        {
+                                            <span style="color:green"><b>Aktiv</b></span>
+                                        }
+                                        else
+                                        {
+                                            <span style="color:red"><b>Deaktiv</b></span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-primary" asp-action="UpdateCustomer" asp-route-Id="@item.Id"><i class="fa fa-pen"></i></a>
+                                        <a class="btn btn-secondary" asp-action="CustomerHistory" asp-route-Id="@item.Id"><i class="fa fa-list"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+       
+
+        var table = $('.datatables-column-search-select-inputs').DataTable({
+            columnDefs: [
+                { orderable: false, targets: [0, 1, 2, 3, 4, 5] } 
+            ],
+            initComplete: function () {
+                var columns = this.api().columns();
+
+         
+                columns.every(function () {
+                    var column = this;
+                    $('input', column.header()).on('keyup change', function () {
+                        column.search(this.value).draw();
+                    });
+                });
+                
+            }
+        });
+    });
+</script>

@@ -8,7 +8,7 @@ namespace Presentation.Areas.TestSalon.ViewComponents
         {
             
         }
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
 
             return View();

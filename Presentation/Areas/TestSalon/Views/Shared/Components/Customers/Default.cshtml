@@ -5,14 +5,16 @@
 	</a>
 	<ul id="customers" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
 		<li class="sidebar-item">
-		<li class="sidebar-item"><a class='sidebar-link' href='charts-apexcharts.html'>Yeni müştəri</a></li>
-		<li class="sidebar-item"><a class='sidebar-link' href='charts-apexcharts.html'>Qadınlar</a></li>
-			<a class='sidebar-link' href='charts-chartjs.html'>Kişilər</a>
-		</li>
+		<li class="sidebar-item"><a class='sidebar-link' asp-controller="Customer" asp-action="AddCustomer">Yeni müştəri</a></li>
+		<li class="sidebar-item"><a class='sidebar-link' asp-controller="Customer" asp-action="AllCustomers">Hamısı</a></li>
+		<li class="sidebar-item"><a class='sidebar-link' asp-controller="Customer" asp-action="FemaleList">Qadınlar</a></li>
 
+		<li class="sidebar-item">
+			<a class='sidebar-link' asp-controller="Customer" asp-action="MaleList">Kişilər</a>
+			</li>
 		@if (User.IsInRole("Admin"))
 		{
-			<li class="sidebar-item"><a class='sidebar-link' href='charts-apexcharts.html'>Geri ödəniş</a></li>
+			<li class="sidebar-item"><a class='sidebar-link' asp-controller="Customer" asp-action="DeactiveCustomerList">Deaktiv müştərilər</a></li>
 		}
 		
 

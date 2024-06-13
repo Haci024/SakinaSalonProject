@@ -19,7 +19,9 @@ namespace Presentation.Areas.TestSalon.Controllers
         [HttpGet]
 		public async Task<IActionResult> ReservationList()
 		{
+			
 			IQueryable<LazerAppointment> reservations = await _lazerService.GetAllReservations(1);
+			
 			
 			
 			return View(reservations);

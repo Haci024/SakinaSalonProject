@@ -241,14 +241,12 @@ namespace Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    BirthDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true,defaultValue:"01.01.2024"),
                     FullName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    PhoneNumber = table.Column<double>(type: "double precision", maxLength: 15, nullable: true),
-                    GiveNumber = table.Column<bool>(type: "boolean", nullable: false),
-                    GiveBirthDate = table.Column<bool>(type: "boolean", nullable: false),
-                    Female = table.Column<bool>(type: "boolean", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true),
+                    Female = table.Column<bool>(type: "boolean", nullable: false,defaultValue:true),
                     FilialId = table.Column<int>(type: "integer", nullable: false),
-                    Status = table.Column<bool>(type: "boolean", nullable: false)
+                    Status = table.Column<bool>(type: "boolean", nullable: false,defaultValue:true)
                 },
                 constraints: table =>
                 {

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240610173004_initalize")]
+    [Migration("20240613164328_initalize")]
     partial class initalize
     {
         /// <inheritdoc />
@@ -483,15 +483,9 @@ namespace Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<bool>("GiveBirthDate")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("GiveNumber")
-                        .HasColumnType("boolean");
-
-                    b.Property<double?>("PhoneNumber")
+                    b.Property<string>("PhoneNumber")
                         .HasMaxLength(15)
-                        .HasColumnType("double precision")
+                        .HasColumnType("character varying(15)")
                         .HasColumnName("PhoneNumber");
 
                     b.Property<bool>("Status")

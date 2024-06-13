@@ -6,7 +6,7 @@ namespace Presentation.Areas.TestSalon.Controllers
     public class DashboardController : Controller
     {
 
-        public IActionResult Index()
+        public IActionResult LazerAppointment()
         {
             return View();
         }

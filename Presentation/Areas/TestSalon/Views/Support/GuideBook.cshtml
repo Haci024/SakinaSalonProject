@@ -1,0 +1,333 @@
+﻿
+@{
+    ViewData["Title"] = "GuideBook";
+    Layout = "~/Areas/TestSalon/Views/Shared/_Salon1Layout.cshtml";
+}
+
+<style>
+	.table thead select {
+		width: 100%;
+		padding: 5px;
+		font-size: 14px;
+		line-height: 1.5;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background-color: #fff;
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+
+	.nav-link.active {
+		color: #fff !important;
+		background-color: #007bff !important;
+	}
+
+	.table thead select:focus {
+		border-color: #5cb3fd;
+		outline: 0;
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(28,135,243,0.6);
+	}
+
+	.nav-link.active:hover {
+		background-color: #ddd;
+		color: #000;
+	}
+</style>
+<div class="container-fluid">
+
+	<div class="header">
+		<h1 class="header-title">
+			Proqram istifadə qaydaları
+		</h1>
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+			</ol>
+		</nav>
+	</div>
+	<div class="row">
+		<div class="col-12">
+			<div class="card">
+				<div class="card-body">
+					<div class="col-12 col-lg-12">
+						<div class="tab">
+							<ul class="nav nav-tabs" role="tablist">
+								<li class="nav-item"><a class="nav-link active" href="#tab-1" data-bs-toggle="tab" role="tab">Lazer Epilyasiyası</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-2" data-bs-toggle="tab" role="tab">Kosmetologiya</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-3" data-bs-toggle="tab" role="tab">Solarium</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-4" data-bs-toggle="tab" role="tab">Bədən Şəkilləndirmə</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-5" data-bs-toggle="tab" role="tab">Pirsinq</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-6" data-bs-toggle="tab" role="tab">Çistka</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-7" data-bs-toggle="tab" role="tab">Lipuçka</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-8" data-bs-toggle="tab" role="tab">Saç kəsimi</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-9" data-bs-toggle="tab" role="tab">Üz baxımı</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-10" data-bs-toggle="tab" role="tab">Kassa əməliyyatları</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-11" data-bs-toggle="tab" role="tab">Hesabat</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab-12" data-bs-toggle="tab" role="tab">Müştərilər</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="tab-1" role="tabpanel">
+									<h4 class="tab-title">Lazer Epilyasiyası</h4>
+									<div class="container-fluid">
+
+										
+										<div class="row">
+											
+											<h3>Yeni Rezervasiya əlavə etmək</h3>
+											<div class="col-12 col-xxl-12">
+												<div id="smartwizard-arrows-primary" class="wizard wizard-primary mb-4">
+													<ul class="nav">
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-primary-step-1">Rezervasiya əlavə edilməsi<br /><small></small></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-primary-step-2">Məlumatların doldurulması<br /></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-primary-step-3">Müştəri gəldikdə nə etməli<br /></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-primary-step-4">Qiymətdə dəyişiklik edilərsə<br /></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-primary-step-5">Qiymətdə dəyişiklik edilərsə<br /></a>
+														</li>
+													</ul>
+
+													<div class="tab-content">
+														<div id="arrows-primary-step-1" class="tab-pane" role="tabpanel">
+															Step Content 1
+														</div>
+														<div id="arrows-primary-step-2" class="tab-pane" role="tabpanel">
+															Step Content 2
+														</div>
+														<div id="arrows-primary-step-3" class="tab-pane" role="tabpanel">
+															Step Content 3
+														</div>
+														<div id="arrows-primary-step-4" class="tab-pane" role="tabpanel">
+															Step Content 4
+														</div>
+														<div id="arrows-primary-step-5" class="tab-pane" role="tabpanel">
+															Step Content 5
+														</div>
+													</div>
+												</div>
+												<h3>Müştəri birbaşa gəldikdə nə etməli?</h3>
+												<div id="smartwizard-arrows-success" class="wizard wizard-success mb-4">
+													<ul class="nav">
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-success-step-1">Müştəri<br /><small>Step description</small></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-success-step-2">Step Title<br /><small>Step description</small></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-success-step-3">Step Title<br /><small>Step description</small></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-success-step-4">Step Title<br /><small>Step description</small></a>
+														</li>
+													</ul>
+
+													<div class="tab-content">
+														<div id="arrows-success-step-1" class="tab-pane" role="tabpanel">
+															Step Content 1
+														</div>
+														<div id="arrows-success-step-2" class="tab-pane" role="tabpanel">
+															Step Content 2
+														</div>
+														<div id="arrows-success-step-3" class="tab-pane" role="tabpanel">
+															Step Content 3
+														</div>
+														<div id="arrows-success-step-4" class="tab-pane" role="tabpanel">
+															Step Content 4
+														</div>
+													</div>
+												</div>
+												<h3>Seans xatırlatma necə edilir?</h3>
+												<div id="smartwizard-arrows-danger" class="wizard wizard-danger mb-4">
+													<ul class="nav">
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-danger-step-1">İdarə panelində gündəlik işlərə baxın<br /></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-danger-step-2">Seans xatırlatma bölməsinə daxil olun<br /></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-danger-step-3">Müştərilərin nömrəsinə görə onlara zəng edin<br /></a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" href="#arrows-danger-step-4">Seans düyməsini seçin və məlumatları doldurun<br /></a>
+														</li>
+													</ul>
+
+													<div class="tab-content">
+														<div id="arrows-danger-step-1" class="tab-pane" role="tabpanel">
+															Step Content 1
+														</div>
+														<div id="arrows-danger-step-2" class="tab-pane" role="tabpanel">
+															Step Content 2
+														</div>
+														<div id="arrows-danger-step-3" class="tab-pane" role="tabpanel">
+															Step Content 3
+														</div>
+														<div id="arrows-danger-step-4" class="tab-pane" role="tabpanel">
+															Step Content 4
+														</div>
+													</div>
+												</div>
+											</div>
+
+											
+										</div>
+
+									</div>
+								</div>
+								<div class="tab-pane" id="tab-2" role="tabpanel">
+									<h4 class="tab-title">Kosmetologiya</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-3" role="tabpanel">
+									<h4 class="tab-title">Solarium</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-4" role="tabpanel">
+									<h4 class="tab-title">Bədən şəkilləndirmə</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-5" role="tabpanel">
+									<h4 class="tab-title">Pirsinq</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-6" role="tabpanel">
+									<h4 class="tab-title">Çistka</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-7" role="tabpanel">
+									<h4 class="tab-title">Lipuçka</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-8" role="tabpanel">
+									<h4 class="tab-title">Saç kəsimi</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-9" role="tabpanel">
+									<h4 class="tab-title">Üz baxımı</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-10" role="tabpanel">
+									<h4 class="tab-title">Kassa əməliyyatları</h4>
+									
+								</div>
+								<div class="tab-pane" id="tab-11" role="tabpanel">
+									<h4 class="tab-title">Hesabat</h4>
+									
+
+								</div>
+								<div class="tab-pane" id="tab-12" role="tabpanel">
+									<h4 class="tab-title">Müştərilər</h4>
+
+
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+</div>
+
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		$("#smartwizard-default-primary").smartWizard({
+			theme: "default",
+			showStepURLhash: false
+		});
+		$("#smartwizard-default-success").smartWizard({
+			theme: "default",
+			showStepURLhash: false
+		});
+		$("#smartwizard-default-danger").smartWizard({
+			theme: "default",
+			showStepURLhash: false
+		});
+		$("#smartwizard-default-warning").smartWizard({
+			theme: "default",
+			showStepURLhash: false
+		});
+		$("#smartwizard-arrows-primary").smartWizard({
+			theme: "arrows",
+			showStepURLhash: false
+		});
+		$("#smartwizard-arrows-success").smartWizard({
+			theme: "arrows",
+			showStepURLhash: false
+		});
+		$("#smartwizard-arrows-danger").smartWizard({
+			theme: "arrows",
+			showStepURLhash: false
+		});
+		$("#smartwizard-arrows-warning").smartWizard({
+			theme: "arrows",
+			showStepURLhash: false
+		});
+		// Validation
+		var $validationForm = $("#smartwizard-validation");
+		$validationForm.validate({
+			errorPlacement: function errorPlacement(error, element) {
+				$(element).parents(".error-placeholder").append(
+					error.addClass("invalid-feedback small d-block")
+				)
+			},
+			highlight: function (element) {
+				$(element).addClass("is-invalid");
+			},
+			unhighlight: function (element) {
+				$(element).removeClass("is-invalid");
+			},
+			rules: {
+				"wizard-confirm": {
+					equalTo: "input[name=\"wizard-password\"]"
+				}
+			}
+		});
+		$validationForm
+			.smartWizard({
+				autoAdjustHeight: false,
+				backButtonSupport: false,
+				useURLhash: false,
+				showStepURLhash: false,
+				toolbarSettings: {
+					toolbarExtraButtons: [$("<button class=\"btn btn-submit btn-primary\" type=\"button\">Finish</button>")]
+				}
+			})
+			.on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
+				if (stepDirection === 1) {
+					return $validationForm.valid();
+				}
+				return true;
+			});
+		$validationForm.find(".btn-submit").on("click", function () {
+			if (!$validationForm.valid()) {
+				return;
+			}
+			alert("Great! The form is valid and ready to submit.");
+			return false;
+		});
+	});
+</script>

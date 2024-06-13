@@ -5,7 +5,7 @@ namespace Presentation.Areas.TestSalon.ViewComponents
 	public class CosmetologyViewComponent:ViewComponent
 	{
 		
-		public IViewComponentResult Invoke()
+		public  IViewComponentResult Invoke()
 		{
 
 			return View();

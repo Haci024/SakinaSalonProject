@@ -9,7 +9,7 @@ namespace Presentation.Areas.TestSalon.ViewComponents
         {
             
         }
-        public IViewComponentResult Invoke()
+        public  IViewComponentResult Invoke()
         {
 
             return View();

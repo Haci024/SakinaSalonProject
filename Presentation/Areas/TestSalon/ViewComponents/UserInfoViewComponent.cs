@@ -4,10 +4,7 @@ namespace Presentation.Areas.TestSalon.ViewComponents
 {
 	public class UserInfoViewComponent:ViewComponent
 	{
-        public UserInfoViewComponent()
-        {
-            
-        }
+       
         public IViewComponentResult Invoke()
         {
 
