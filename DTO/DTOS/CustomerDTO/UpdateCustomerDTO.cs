@@ -17,8 +17,7 @@ namespace DTO.DTOS.CustomerDTO
 
         public string PhoneNumber { get; set; }
 
-        public bool? Female { get; set; }
+        public bool Female { get; set; }
 
-        public bool Status { get; set; } = true;
     }
 }

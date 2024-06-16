@@ -14,7 +14,7 @@ namespace DTO.AutoMapper.CustomerMapper
         public CustomerMapper()
         {
 			CreateMap<Customers, CustomerListDTO>();
-			CreateMap<CustomerListDTO, Customers>().ReverseMap();
+			CreateMap<CustomerListDTO, Customers>();
 			CreateMap<Customers, UpdateCustomerDTO>();
 			CreateMap<UpdateCustomerDTO, Customers>().ForMember(dest => dest.BirthDate,
                opt => opt.MapFrom(src => src.BirthDate.HasValue

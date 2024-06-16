@@ -65,7 +65,8 @@ namespace Presentation.Areas.TestSalon.Controllers
 		[HttpGet]
 		public async Task<IActionResult> AddCustomer()
 		{
-			AddCustomerDTO dto = new();	
+			AddCustomerDTO dto = new();
+			
 			return View(dto);
 		}
 
@@ -87,15 +88,13 @@ namespace Presentation.Areas.TestSalon.Controllers
 			Customers entity = new();
 			_mapper.Map(dto, entity);
 			entity.FilialId = 1;
-			
-			
 			_customerService.Create(entity);
 			return RedirectToAction("AllCustomers");
 		}
 		[HttpGet]
 		public async Task<IActionResult> UpdateCustomer(int Id)
 		{
-   UpdateCustomerDTO dto=_mapper.Map<UpdateCustomerDTO>(await _customerService.SelectedCustomer(Id,1));
+       UpdateCustomerDTO dto=_mapper.Map<UpdateCustomerDTO>(await _customerService.SelectedCustomer(Id,1));
 			
 			return View(dto);
 		}
@@ -118,5 +117,40 @@ namespace Presentation.Areas.TestSalon.Controllers
 			_customerService.Update(entity);
 			return RedirectToAction("AllCustomers");
         }
-    }
+		[HttpGet]
+		public async Task<IActionResult> DeactiveCustomer(int Id) {
+
+			Customers entity = await _customerService.GetById(Id);
+			if (entity.Status)
+			{
+				entity.Status = false;
+				_customerService.Update(entity);
+				return View("AllCustomers");
+			}
+			else
+			{
+				entity.Status = true;
+				_customerService.Update(entity);
+				return View("AllCustomers");
+			}
+		}
+		[HttpGet]
+		public async Task<IActionResult> UpdateSex(int Id)
+		{
+
+			Customers entity = await _customerService.GetById(Id);
+			if (entity.Female)
+			{
+				entity.Female= false;
+				_customerService.Update(entity);
+				return View("AllCustomers");
+			}
+			else
+			{
+				entity.Female = true;
+				_customerService.Update(entity);
+				return View("AllCustomers");
+			}
+		}
+	}
 }

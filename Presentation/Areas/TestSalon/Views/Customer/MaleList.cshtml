@@ -6,7 +6,7 @@
 }
 
 <style>
-    .table thead input {
+    .table thead input, .table thead select {
         width: 100%;
         padding: 5px;
         font-size: 14px;
@@ -18,12 +18,23 @@
         transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     }
 
+    .table thead select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="%23999" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+        background-repeat: no-repeat;
+        background-position-x: 100%;
+        background-position-y: 5px;
+        padding-right: 20px;
+    }
+
     .nav-link.active {
         color: #fff !important;
         background-color: #007bff !important;
     }
 
-    .table thead input:focus {
+    .table thead input:focus, .table thead select:focus {
         border-color: #5cb3fd;
         outline: 0;
         box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(28,135,243,0.6);
@@ -38,7 +49,7 @@
 <div class="container-fluid">
     <div class="header">
         <h1 class="header-title">
-           Kişi müştərilər
+            Qadın müştərilər
         </h1>
     </div>
 
@@ -59,11 +70,10 @@
                                 <th>Əməliyyatlar</th>
                             </tr>
                             <tr>
-                                <th><input type="text" class="form-control column-filter" placeholder="No" disabled></th>
-                                <th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-                                <th><input type="text" class="form-control column-filter" placeholder="Nömrə"></th>
-                                <th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Doğum tarixi" title="Please enter a date in the format dd.mm.yyyy"></th>
-
+                                <th><input type="text" class="form-control column-filter" placeholder=" No" disabled></th>
+                                <th><select class="form-control column-filter"><option value="">Müştəri</option></select></th>
+                                <th><input type="text" class="form-control column-filter" placeholder=" Nömrə"></th>
+                                <th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder=" Doğum tarixi" title="Please enter a date in the format dd.mm.yyyy"></th>
                                 <th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
                                 <th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
                             </tr>
@@ -92,12 +102,7 @@
                                         else
                                         {
                                             <span style="color:red"><b>Doğum tarixi verməyib!</b></span>
-
                                         }
-
-
-
-
                                     </td>
                                     <td>
                                         @if (item.Status)
@@ -125,23 +130,42 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-
-
+        // Initialize DataTable
         var table = $('.datatables-column-search-select-inputs').DataTable({
             columnDefs: [
                 { orderable: false, targets: [0, 1, 2, 3, 4, 5] }
             ],
             initComplete: function () {
-                var columns = this.api().columns();
+                var api = this.api();
+                var fullNameColumn = api.column(1);
 
+                // Get unique values for the FullName column
+                var uniqueFullNames = [];
+                fullNameColumn.data().each(function (value) {
+                    if (uniqueFullNames.indexOf(value) === -1) {
+                        uniqueFullNames.push(value);
+                    }
+                });
 
-                columns.every(function () {
+                // Populate the FullName select element with unique values
+                var select = $('select', fullNameColumn.header());
+                uniqueFullNames.sort().forEach(function (fullName) {
+                    select.append('<option value="' + fullName + '">' + fullName + '</option>');
+                });
+
+                // Add event listener to the FullName select element
+                select.on('change', function () {
+                    var searchValue = this.value ? this.value : '';
+                    fullNameColumn.search(searchValue).draw();
+                });
+
+                // Add event listeners to other input elements for column filtering
+                api.columns().every(function () {
                     var column = this;
                     $('input', column.header()).on('keyup change', function () {
                         column.search(this.value).draw();
                     });
                 });
-
             }
         });
     });

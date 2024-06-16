@@ -17,5 +17,7 @@ namespace DTO.DTOS.CustomerDTO
 		public bool? Female { get; set; }
 
 		public bool Status { get; set; } = true;
+
+		public int FilialId { get; set; }
 	}
 }

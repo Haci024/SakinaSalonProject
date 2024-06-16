@@ -6,9 +6,8 @@
 	
   
 }
-
 <style>
-	.table thead select {
+	.table thead input, .table thead select {
 		width: 100%;
 		padding: 5px;
 		font-size: 14px;
@@ -20,19 +19,34 @@
 		transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 	}
 
+	.table thead select {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		background-image: url('data:image/svg+xml;utf8,<svg fill="%23999" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+		background-repeat: no-repeat;
+		background-position-x: 100%;
+		background-position-y: 5px;
+		padding-right: 30px;
+		padding-left:10px;
+		
+		
+	}
+
 	.nav-link.active {
 		color: #fff !important;
-		background-color: #007bff !important; 
+		background-color: #007bff !important;
 	}
-		.table thead select:focus {
-			border-color: #5cb3fd;
-			outline: 0;
-			box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(28,135,243,0.6);
-		}
+
+	.table thead input:focus, .table thead select:focus {
+		border-color: #5cb3fd;
+		outline: 0;
+		box-shadow: inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(28,135,243,0.6);
+	}
 
 	.nav-link.active:hover {
-		background-color: #ddd; 
-		color: #000; 
+		background-color: #ddd;
+		color: #000;
 	}
 </style>
 <div class="container-fluid">
@@ -69,11 +83,11 @@
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab-1" role="tabpanel">
-									<h4 class="tab-title">Default tabs</h4>
+									<h4 class="tab-title">@DateTime.UtcNow.ToAzerbaijanFormat()</h4>
 									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
 										<thead>
 											<tr>
-												<th>Rezerv tarixi</th>
+												
 												<th>Müştəri</th>
 												<th>Lazeroloq</th>
 												<th>Nahiyə</th>
@@ -83,12 +97,12 @@
 												<th>Əməliyyatlar</th>
 											</tr>
 											<tr>
-												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
+												
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Hamısı</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
-												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
-												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>	
+												<th><input type="text" data-mask="00:00" class="form-control column-filter" placeholder="Giriş saatı"></th>
+												<th><input type="text" data-mask="00:00" class="form-control column-filter" placeholder="Çıxış saatı"></th>	
 												<th><input type="text" class="form-control column-filter" placeholder=" Status"></th>
 												<th><input type="text" class="form-control column-filter" placeholder=" Əməliyyatlar" disabled></th>
 											</tr>
@@ -96,49 +110,53 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date==DateTime.UtcNow.Date)
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
+												
 											}
 
 
@@ -146,8 +164,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-2" role="tabpanel">
-									<h4 class="tab-title">Another one</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(1).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs1" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -162,7 +180,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -173,49 +191,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(1))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -223,8 +244,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-3" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(2).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs2" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -250,49 +271,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(2))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -300,8 +324,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-4" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(3).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs3" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -316,7 +340,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -327,49 +351,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(3))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -377,8 +404,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-5" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(4).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs4" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -393,7 +420,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -404,49 +431,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(4))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -454,8 +484,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-6" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(5).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs5" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -470,7 +500,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -481,49 +511,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(5))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -531,8 +564,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-7" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(6).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs6" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -547,7 +580,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -558,49 +591,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(6))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -608,8 +644,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-8" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(7).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs7" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -624,7 +660,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -635,49 +671,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(7))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -685,8 +724,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-9" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(8).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs8" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -701,7 +740,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -712,49 +751,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(8))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -762,8 +804,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-10" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(9).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs9" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -778,7 +820,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -789,49 +831,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(9))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -839,8 +884,8 @@
 									</table>
 								</div>
 								<div class="tab-pane" id="tab-11" role="tabpanel">
-									<h4 class="tab-title">One more</h4>
-									<table class="table table-striped datatables-column-search-select-inputs" style="width:100%">
+									<h4 class="tab-title">@DateTime.UtcNow.AddDays(10).ToAzerbaijanFormat()</h4>
+									<table class="table table-striped datatables-column-search-select-inputs10" style="width:100%">
 										<thead>
 											<tr>
 												<th>Rezerv tarixi</th>
@@ -855,7 +900,7 @@
 											<tr>
 												<th><input type="text" data-mask="00.00.0000" class="form-control column-filter" placeholder="Tarix"></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Müştəri"></th>
-												<th><input type="text" class="form-control column-filter" placeholder="Lazeroloq"></th>
+												<th><select class="form-control column-filter"><option value="">Lazeroloq</option></select></th>
 												<th><input type="text" class="form-control column-filter" placeholder="Nahiyə"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Giriş saatı"></th>
 												<th><input type="text" data-mask="00-00" class="form-control column-filter" placeholder="Çıxış saatı"></th>
@@ -866,49 +911,52 @@
 										<tbody>
 											@foreach (var item in Model)
 											{
-												<tr>
-													<td>@item.ReservationDate.ToString("dd.MM.YYYY")</td>
-													<td>@item.Customers.FullName</td>
-													<td>@item.Master.FullName</td>
-													<td>
-														@foreach (var reports in item.LazerAppointmentReports)
-														{
-															<div>@reports.LazerCategory.Name</div>
-														}
-													</td>
-													<td>
-														@if (item.IsStarted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsCompleted)
-														{
-															@item.StartTime.Value.ToString("HH:dd")
-														}
-														else
-														{
-															<div>Seans başlamayıb</div>
-														}
-													</td>
-													<td>
-														@if (item.IsReserved)
-														{
-															<span style="color:green">Rezervasiya<b></b></span>
-														}
-														else
-														{
-															<span style="color:blue">Seans başlayıb<b></b></span>
-														}
-													</td>
-													<td>2011/06/07</td>
+												@if (item.ReservationDate.Date == DateTime.UtcNow.Date.AddDays(10))
+												{
+													<tr>
 
-												</tr>
+														<td>@item.Customers.FullName</td>
+														<td>@item.Master.FullName</td>
+														<td>
+															@foreach (var reports in item.LazerAppointmentReports)
+															{
+																<div>@reports.LazerCategory.Name</div>
+															}
+														</td>
+														<td>
+															@if (item.IsStarted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsCompleted)
+															{
+																@item.StartTime.Value.ToString("HH:dd")
+															}
+															else
+															{
+																<div>Seans başlamayıb</div>
+															}
+														</td>
+														<td>
+															@if (item.IsReserved)
+															{
+																<span style="color:green">Rezervasiya<b></b></span>
+															}
+															else
+															{
+																<span style="color:blue">Seans başlayıb<b></b></span>
+															}
+														</td>
+														<td>2011/06/07</td>
+
+													</tr>
+												}
 											}
 
 
@@ -949,5 +997,410 @@
 
 			}
 		});
+		
+	
+
+	});
+</script>
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs1').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var columns = this.api().columns();
+
+
+				columns.every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs2').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var columns = this.api().columns();
+
+
+				columns.every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+
+			}
+		});
+
+
+
+	});
+		document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs3').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs4').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs5').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs6').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs7').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs8').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs9').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				// Add event listener to the FullName select element
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				// Add event listeners to other input elements for column filtering
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
+	});
+	document.addEventListener("DOMContentLoaded", function () {
+
+
+		var table = $('.datatables-column-search-select-inputs10').DataTable({
+			columnDefs: [
+				{ orderable: false, targets: [0, 1, 2, 3, 4, 5, 6, 7, 8] }
+			],
+			initComplete: function () {
+				var api = this.api();
+				var fullNameColumn = api.column(1);
+
+				// Get unique values for the FullName column
+				var uniqueFullNames = [];
+				fullNameColumn.data().each(function (value) {
+					if (uniqueFullNames.indexOf(value) === -1) {
+						uniqueFullNames.push(value);
+					}
+				});
+
+				// Populate the FullName select element with unique values
+				var select = $('select', fullNameColumn.header());
+				uniqueFullNames.sort().forEach(function (fullName) {
+					select.append('<option value="' + fullName + '">' + fullName + '</option>');
+				});
+
+				
+				select.on('change', function () {
+					var searchValue = this.value ? this.value : '';
+					fullNameColumn.search(searchValue).draw();
+				});
+
+				
+				api.columns().every(function () {
+					var column = this;
+					$('input', column.header()).on('keyup change', function () {
+						column.search(this.value).draw();
+					});
+				});
+			}
+		});
+
+
+
 	});
 </script>
