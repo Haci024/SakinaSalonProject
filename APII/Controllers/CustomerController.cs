@@ -72,7 +72,7 @@ namespace API.Controllers
         {
             var entity = await _customerService.GetById(Id);
             _customerService.Delete(entity);
-            return Ok(entity +" Uğurla silindi!");
+            return Ok(entity.Id +"-yə ymalik data uğurla silindi!");
         }
 
         [HttpPut("UpdateStatus")]

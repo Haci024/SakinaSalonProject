@@ -5,7 +5,9 @@ using Data.DAL.Customer;
 using Data.Repositories.Db1Repository;
 using Data.Repositories.EntityRepos;
 using Data.Services.EntityService;
+using DTO.AutoMapper;
 using DTO.AutoMapper.CustomerMapper;
+using DTO.AutoMapper.LazerMapper;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -14,6 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<AppDbContext>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(typeof(CustomerMapper));
+builder.Services.AddAutoMapper(typeof(LazerMapper));
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ILazerAppointmentService, LazerAppointmentManager>();
 builder.Services.AddScoped<ILazerAppointmentDAL, LazerAppointmentRepository>();
